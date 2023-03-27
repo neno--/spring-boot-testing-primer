@@ -2,21 +2,27 @@ package com.github.nenomm.springboottestingprimer.slicing;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/articles")
 public class ArticleController {
 
-  private final ArticleRepository articleRepository;
+  private final ArticleService articleService;
 
-  public ArticleController(ArticleRepository articleRepository) {
-    this.articleRepository = articleRepository;
+  public ArticleController(ArticleService articleService) {
+    this.articleService = articleService;
   }
 
-  // Aggregate root
-  // tag::get-aggregate-root[]
-  @GetMapping("/articles")
-  List<Article> all() {
-    return articleRepository.findAll();
+  @GetMapping("/")
+  List<Article> findAll() {
+    return articleService.findAll();
+  }
+
+  @GetMapping("/{articleName}")
+  Article findByArticleName(@PathVariable String articleName) {
+    return articleService.findArticleByName(articleName);
   }
 }
