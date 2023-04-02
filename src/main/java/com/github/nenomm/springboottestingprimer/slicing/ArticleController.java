@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/articles")
+@RequestMapping("/api/")
 public class ArticleController {
 
   private final ArticleService articleService;
@@ -16,12 +16,12 @@ public class ArticleController {
     this.articleService = articleService;
   }
 
-  @GetMapping("/")
+  @GetMapping("/articles")
   List<Article> findAll() {
     return articleService.findAll();
   }
 
-  @GetMapping("/{articleName}")
+  @GetMapping("/articles/{articleName}")
   Article findByArticleName(@PathVariable String articleName) {
     return articleService.findArticleByName(articleName);
   }
